@@ -1,0 +1,63 @@
+Servlet & JSP Evaluation Project
+--------------------------------
+
+Task  : Create a Profile Management System using MVC Architecture.
+
+Modules / Functionalities:
+
+1) Login Module
+2) Registration Module
+3) View Profile
+4) Edit Profile Module
+5) Change Password Module
+
+You need to create a Profile Management System for some targeted users.
+
+
+Use the skeleton to develop the requirement.
+packages:
+
+com.dsrc.bean		- All the Bean Classes / POJOs should come inside it.
+com.dsrc.controller	- All the servlet should be created in this package.
+com.dsrc.bo 		- All the BO (Business Objects) should be created in this.
+com.dsrc.dao		- All the DAO classes should be created on this.
+com.dsrc.exceptions - All user defined exception classes will go here.
+
+1) Login Module 
+
+Functionality : Used for login into the system . Validate the credentials against the values in Database and Redirect to Home Page if the 
+credentials are right and go back to login page else.
+Workflow :  Login.jsp -> LoginController -> ProfileMgmtBO -> ProfileMgmtDAO -----> Database
+							(LoginBean)
+							
+2) Registration Module 
+Functionality : Used for Registering the User with the system. The registration details has to be saved in the database and return the status.
+If registered go back to the login page for logging in and else to the registration page with proper error messages.
+
+Workflow :  Registration.jsp -> RegistrationController -> ProfileMgmtDAO -----> Database 
+							(RegisterBean)
+
+3) View Profile : Used for viewing the profile after logging in . Do not reveal password. 
+
+Workflow :  ViewProfile.jsp -> ViewProfileController -> ProfileMgmtDAO -----> Database 
+							(Registerbean)
+
+4) Edit Profile Module
+Functionality : Used for editing the profile after the user is logged . Update the database with new profile values.
+Password should not be edited in the screen.  After successful update of profile go to Home Screen.
+ 
+Workflow :  EditProfile.jsp -> EditController -> ProfileMgmtDAO -----> Database 
+							(RegisterBean)
+							
+		
+5)Change Password Module
+Functionality : Used for changing the password or a user. Accept the old password and new password from the user and change accordingly in the database.After successful execution go to login page.
+
+Workflow :  ChangePassword.jsp -> ChangePasswordController -> ProfileMgmtDAO -----> Database 
+							(PasswordBean)
+							
+							
+							
+
+
+

@@ -1,0 +1,769 @@
+1.REGISTER.JSP
+
+<title>Insert title here</title>
+<script type="text/javascript">
+ function validateForm()
+ {
+	 var x=document.forms["MyForm"]["id"].value;
+	 var y=document.forms["MyForm"]["name"].value;
+	 var z=document.forms["MyForm"]["age"].value;
+	 var a=document.forms["MyForm"]["pass"].value;
+	 if(x=="")
+		 {
+		 alert("ID must be Filled");
+		 return false;
+		 }
+	 if(y=="")
+		 {
+		 alert("Name must be filled");
+		 return false;
+		 }
+	 if(z=="")
+	 {
+		 alert("Age must be filled");
+		 return false;
+		 }
+	 if(IsNaN(z) || z<1 || z<100)
+	 {
+		 alert("Age should be between 1 and 100");
+		 return false;
+	 }
+	 if(a=="")
+	 {
+	 alert("Name must be filled");
+	 return false;
+	 }
+ }
+</script>
+</head>
+<body>
+<form action="RegistrationController" method="post" name="MyForm" onsubmit="return validateForm()">
+<center>
+<b><font size="5">Registration Form</font></b>
+<table>
+<tr><td>Enter ID</td><td><input type="text" name="id"></td></tr>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td>Age</td><td><input type="text" name="age"></td><br> 
+<tr><td>Select City</td><td><select name="city">
+<option value=""></option>
+<option value="chennai">Chennai</option>
+<option value="cochin">Cochin</option>
+<option value="bangalore">Bangalore</option>
+<option value="delhi">Delhi</option>
+</select>
+</td><br>
+<tr><td></td><td align="right"><input type="submit" value="Register"></td></tr>
+</table>
+</form>
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+</center> 
+</body>
+</html>
+
+
+REGISTRATION CONTROLLER
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		RegisterBean regBean=new RegisterBean();
+		regBean.setId(Integer.parseInt(request.getParameter("id")));
+		regBean.setName(request.getParameter("name"));
+		regBean.setPass(request.getParameter("pass"));
+		regBean.setAge(Integer.parseInt(request.getParameter("age")));
+		regBean.setCity(request.getParameter("city"));
+		
+		ProfileManagementBO bo=new ProfileManagementBO();
+		try
+		{
+			boolean res=bo.registerUser(regBean);
+			if(res)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("Home.jsp");
+				request.setAttribute("name",regBean.getName());
+				rd.forward(request,response);
+			}
+			else
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("Register.jsp");
+				request.setAttribute("errorReason","Registration Failed");
+				rd.forward(request,response);
+			}
+		}
+		catch(CustomerException | ProfileMgmtException e)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("Register.jsp");
+			request.setAttribute("errorReason",e.getMessage());
+			rd.forward(request,response);
+		}
+		
+		
+}
+}
+
+
+REGISTER BEAN
+
+public class RegisterBean 
+{
+	private int id;
+	private String name;
+	private String pass;
+	private int age;
+	private String city;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+	
+}
+
+********************************************************************************************************
+2.LOGIN.JSP
+
+
+<script type="text/javascript">
+ function validateForm()
+ {
+	  var x=document.forms["MyForm"]["name"].value;
+	 var y=document.forms["MyForm"]["pass"].value;
+	 if(x=="")
+	 {
+	 alert("Name must be Filled");
+	 return false;
+	 }
+ if(y=="")
+	 { 
+	 alert("Password must be filled");
+	 return false;
+	 }
+ }
+ </script>
+</head>
+<body>
+<form action="LoginController" method="post" name="MyForm" onsubmit="return validateForm()">
+<center>
+<b><font size="5">Login Details</font></b>
+<table>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="Password" name="pass"></td></tr>
+<tr><td></td><td><input type="submit" value="view profile"></td></tr>
+</tr>
+</table>
+</form>
+<a href="ChangePassword.jsp">ChangePassword</a>
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+</center>
+
+</body>
+
+
+LOGIN CONTROLLER
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try{
+		String username=request.getParameter("name");
+		String password=request.getParameter("pass");
+		LoginBean logBean=new LoginBean();
+		logBean.setName(username);
+		logBean.setPass(password);
+
+		
+		ProfileManagementDAO dao=new ProfileManagementDAO(); 
+
+		RegisterBean res = dao.validateLogin(logBean);
+;			if(res.getAge()>0)
+			{
+				HttpSession sess=request.getSession();
+				RequestDispatcher rd=request.getRequestDispatcher("ViewProfile.jsp");
+				sess.setAttribute("details",res);
+				rd.forward(request,response);
+			}
+				
+			else
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");
+				request.setAttribute("errorReason","Login Failed");
+				rd.forward(request,response);
+			}
+		}
+		catch(CustomerException e)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");
+			request.setAttribute("errorReason",e.getMessage());
+			rd.forward(request,response);
+		}	
+}
+}
+
+LOGIN BEAN
+
+public class LoginBean 
+{
+	private int id;
+	private String name;
+	private String pass;
+	private int age;
+	private String city;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getPass() {
+		return pass;
+	}
+	public void setPass(String pass) {
+		this.pass = pass;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
+}
+
+*****************************************************************************************************************
+3.VIEW PROFILE.JSP
+
+<title>Insert title here</title>
+<body>
+</head>
+<body>
+<%! RegisterBean rb; %>
+<%
+	rb=(RegisterBean)session.getAttribute("details");
+%>
+
+<form action="ViewProfileController" method="post">
+<center>
+<b><font size="5">View Profile</font></b>
+<table>
+<tr><td>ID</td><td><%= rb.getId() %></td></tr>
+<tr><td>Name</td><td><%=rb.getName() %></td></tr>
+<tr><td>Pass</td><td><%=rb.getPass() %></td></tr>
+<tr><td>Age</td><td><%=rb.getAge() %></td></tr>
+<tr><td>City</td><td><%=rb.getCity() %></td></tr>
+
+</table></center></form>
+<a href="EditProfile.jsp">Edit your Profile</a>
+
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+</body>
+</html>
+
+VIEWPROFILE CONTROLLER
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RegisterBean rb=new RegisterBean();
+		PrintWriter out=response.getWriter();
+		int id=rb.getId();
+		String name=rb.getName();
+		String pass=rb.getPass();
+		int age=rb.getAge();
+		String city=rb.getCity();
+		LoginBean logBean=new LoginBean();
+		logBean.setName("name");
+		logBean.setPass("pass");
+		ProfileManagementBO bo=new ProfileManagementBO();
+		out.println("<html><body><form><table>");
+		out.println("<tr><td>Name</td><td>"+id+"</td></tr>");
+		out.println("<tr><td>Age</td><td>"+name+"</td></tr>");
+		out.println("<tr><td>Gender</td><td>"+pass+"</td></tr>");
+		out.println("<tr><td>PhoneNumber</td><td>"+age+"</td></tr>");
+		out.println("<tr><td>Email</td><td>"+city+"</td></tr>");
+		out.println("</table></form></body></html>");
+	}
+}
+****************************************************************************************************
+4.CHANGEPASSWORD.JSP
+
+<title>Insert title here</title>
+<script type="text/javascript">
+ function validateForm()
+ {
+	  var x=document.forms["MyForm"]["id"].value;
+	 var y=document.forms["MyForm"]["pass"].value;
+	 if(x=="")
+	 {
+	 alert("ID must be Filled");
+	 return false;
+	 }
+ if(y=="")
+	 { 
+	 alert("Password must be filled");
+	 return false;
+	 }
+ }
+ </script>
+</head>
+<body>
+<form action="ChangePasswordController" method="post" name="MyForm" onsubmit="return validateForm()">
+<center>
+<form><b><font size="5">Change Password</font></b></form>
+<table>
+<tr><td>Enter ID</td><td><input type="text" name="id"></td><br>
+<tr><td>Enter old Password</td><td><input type="password" name="pass"></td><br>
+<tr><td>Enter New Password</td><td><input type="password" name="newpass"></td><br>
+<tr><td>Enter confirm Password</td><td><input type="password" name="confirmpass"></td><br>
+<tr><td></td><td align="right"><input type="submit" name="login" value="Login"></td></tr>
+</table>
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+	</form>
+</center>
+</body>
+</html>
+
+CHANGEPASSWORD CONTROLLER
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		ChangePasswordBean cBean=new ChangePasswordBean();
+		cBean.setId(Integer.parseInt(request.getParameter("id")));
+		cBean.setPass(request.getParameter("pass"));
+		cBean.setNewpass(request.getParameter("newpass"));
+		cBean.setConfirmpass(request.getParameter("confirmpass"));
+		ProfileManagementBO bo=new ProfileManagementBO();
+		try
+		{
+			boolean res=bo.changePassword(cBean);
+			if(res)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");
+				
+				rd.forward(request,response);
+			}
+			else
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("ChangePassword.jsp");
+				request.setAttribute("errorReason","Password Failed");
+				rd.forward(request,response);
+			}
+		}
+		catch(CustomerException | ProfileMgmtException e)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("ChangePassword.jsp");
+			request.setAttribute("errorReason","Password Failed");
+			rd.forward(request,response);
+		}
+	}
+}
+
+CHANGEPASSWORD BEAN
+
+public class ChangePasswordBean {
+ private int id;
+ private String pass;
+ private String newpass;
+ private String confirmpass;
+public int getId() {
+	return id;
+}
+public void setId(int id) {
+	this.id = id;
+}
+public String getPass() {
+	return pass;
+}
+public void setPass(String pass) {
+	this.pass = pass;
+}
+public String getNewpass() {
+	return newpass;
+}
+public void setNewpass(String newpass) {
+	this.newpass = newpass;
+}
+public String getconfirmpass() {
+	return confirmpass;
+}
+public void setConfirmpass(String confirmpass) {
+	this.confirmpass = confirmpass;
+}
+
+}
+
+*********************************************************************************************************
+5.EDIT PROFILE
+
+<body>
+<script type="text/javascript">
+ function validateForm()
+ {
+	 var x=document.forms["MyForm"]["id"].value;
+	 var y=document.forms["MyForm"]["name"].value;
+	 var z=document.forms["MyForm"]["age"].value;
+	 var a=document.forms["MyForm"]["pass"].value;
+	 if(x=="")
+		 {
+		 alert("ID must be Filled");
+		 return false;
+		 }
+	 if(y=="")
+		 {
+		 alert("Name must be filled");
+		 return false;
+		 }
+	 if(z=="")
+	 {
+		 alert("Age must be filled");
+		 return false;
+		 }
+	 if(IsNaN(z) || z<1 || z<100)
+	 {
+		 alert("Age should be between 1 and 100");
+		 return false;
+	 }
+	 if(a=="")
+	 {
+	 alert("Name must be filled");
+	 return false;
+	 }
+ }
+</script>
+
+
+</head>
+<body><%! RegisterBean rb; %>
+<%
+	rb=(RegisterBean)session.getAttribute("details");
+%>
+<form action="EditController" method="post" name="MyForm" onsubmit="return validateForm()">
+<center>
+<b><font size="5">EditProfile</font></b>
+<table>
+<tr><td>Enter ID</td><td><input type="text" name="id" value="<%=rb.getId()%>"></td></tr>
+<tr><td>Enter Name</td><td><input type="text" name="name" value="<%=rb.getName()%>"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass" value="<%=rb.getPass()%>"></td></tr>
+<tr><td>Age</td><td><input type="text" name="age" value="<%=rb.getAge()%>"></td><br> 
+<tr><td>Select City</td><td><select name="city">
+<option value=""></option>
+<option value="chennai">Chennai</option>
+<option value="cochin">Cochin</option>
+<option value="bangalore">Bangalore</option>
+<option value="delhi">Delhi</option>
+</select>
+</td><br>
+<tr><td></td><td align="right"><input type="submit" value="Register"></td></tr>
+</table>
+<tr><td><a href="ChangePassword.jsp">change your password</a></td></tr>
+</form>
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+</center> 
+</table>
+</body>
+
+</script>
+</head>
+<body>
+<form action="EditController" method="post" name="MyForm" onsubmit="return validateForm()">
+<center>
+<b><font size="5">EditProfile</font></b>
+<table>
+<tr><td>Enter ID</td><td><input type="text" name="id"></td></tr>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td>Age</td><td><input type="text" name="age"></td><br> 
+<tr><td>Select City</td><td><select name="city">
+<option value=""></option>
+<option value="chennai">Chennai</option>
+<option value="cochin">Cochin</option>
+<option value="bangalore">Bangalore</option>
+<option value="delhi">Delhi</option>
+</select>
+</td><br>
+<tr><td></td><td align="right"><input type="submit" value="Register"></td></tr>
+</table>
+</form>
+<% if(request.getAttribute("errorReason")!=null)
+{
+	%>
+	<center><font color="red"><%=request.getAttribute("errorReason")%></font></center>
+	<%
+	}%>
+</center> 
+</table>
+</body>
+
+EDITCONTROLLER
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RegisterBean regBean=new RegisterBean();
+		regBean.setId(Integer.parseInt(request.getParameter("id")));
+		regBean.setName(request.getParameter("name"));
+		regBean.setPass(request.getParameter("pass"));
+		regBean.setAge(Integer.parseInt(request.getParameter("age")));
+		regBean.setCity(request.getParameter("city"));
+		
+		ProfileManagementBO bo=new ProfileManagementBO();
+		try
+		{
+			boolean res=bo.editUser(regBean);	
+			if(res)
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("Home.jsp");
+				request.setAttribute("name",regBean.getName());
+				rd.forward(request,response);
+			}
+			else
+			{
+				RequestDispatcher rd=request.getRequestDispatcher("EditProfile.jsp");
+				request.setAttribute("errorReason","Registration Failed");
+				rd.forward(request,response);
+			}
+		}
+		catch(CustomerException | ProfileMgmtException e)
+		{
+			RequestDispatcher rd=request.getRequestDispatcher("EditProfile.jsp");
+			request.setAttribute("errorReason",e.getMessage());
+			rd.forward(request,response);
+		}
+	}
+}
+
+
+
+*********************************************************************************************************************
+EXCEPTION
+
+1.public class ProfileMgmtException extends Exception{
+
+	public  ProfileMgmtException(String message)
+	{
+		super(message);
+	}
+}
+
+
+2.public class CustomerException extends Exception {
+public CustomerException(String message){
+	super(message);
+}
+}
+
+*************************************************************************************************************
+HOME
+
+<a href="ViewProfile.jsp">View Profile</a>
+************************************************************************************************************
+PROFILE MANAGEMENT BO
+
+public class ProfileManagementBO 
+{
+	public RegisterBean validateLogin(LoginBean logBean) throws ProfileMgmtException, CustomerException
+	{
+		if(logBean.getName()==null && logBean.getPass()==null){
+			throw new ProfileMgmtException("Invalid Login");	
+		}
+	return new ProfileManagementDAO().validateLogin(logBean);
+     }
+	
+	
+	public boolean registerUser(RegisterBean regBean) throws CustomerException,ProfileMgmtException
+	{
+		if(regBean.getAge()<18)
+			throw new ProfileMgmtException("Invalid Age");
+			return new ProfileManagementDAO().registerUser(regBean);
+	}
+	
+	
+	public RegisterBean viewProfile(LoginBean logBean) throws CustomerException,ProfileMgmtException
+	{
+		
+		return  null;
+		}
+	
+	
+	public boolean editUser(RegisterBean regBean) throws ProfileMgmtException, CustomerException
+	{
+
+			return new ProfileManagementDAO().editUser(regBean);
+	}
+	
+	
+	public boolean changePassword(ChangePasswordBean cBean) throws CustomerException,ProfileMgmtException
+	{
+		return new ProfileManagementDAO().changePassword(cBean);
+	}
+}
+
+**********************************************************************************************************
+PROFILE MANAGEMENT DAO
+
+public class ProfileManagementDAO {
+	public RegisterBean validateLogin(LoginBean logBean) throws CustomerException
+	{
+		RegisterBean rb=new RegisterBean();
+	try
+	{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection com=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+		PreparedStatement ps=(PreparedStatement) com.prepareStatement("select * from Customer where name=? and pass=?");
+		ps.setString(1,logBean.getName());
+		ps.setString(2,logBean.getPass());
+		ResultSet rs=ps.executeQuery();
+		while(rs.next()){
+			rb.setId(rs.getInt(1));
+			rb.setName(rs.getString(2));
+			rb.setPass(rs.getString(3));
+			rb.setAge(rs.getInt(4));
+			rb.setCity(rs.getString(5));
+		}
+		}
+	catch(Exception ex)
+	{
+		throw new CustomerException("Invalid Login");
+	}
+	return rb;
+	}
+		
+		
+	public boolean registerUser(RegisterBean regBean) throws CustomerException
+	{
+		Boolean result=false;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=(PreparedStatement) com.prepareStatement("insert into Customer values(?,?,?,?,?)");
+				ps.setInt(1,regBean.getId());
+				ps.setString(2,regBean.getName());
+				ps.setString(3,regBean.getPass());
+				ps.setInt(4,regBean.getAge());
+				ps.setString(5,regBean.getCity());
+				int res=ps.executeUpdate();
+				if(res>0)
+				{
+					result=true;
+				}}
+		catch(Exception ex)
+		{
+			throw new CustomerException("Customer ID Existing");
+		}
+		return result;
+		}
+	
+	
+	public RegisterBean viewProfile(LoginBean logBean) throws CustomerException
+	{
+		return null;
+	}
+
+	
+	public boolean editUser(RegisterBean regBean) throws CustomerException
+	{
+		Boolean result=false;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=(PreparedStatement) com.prepareStatement("update Customer set name=?,pass=?,age=?,city=? where id=?");
+				ps.setString(1,regBean.getName());
+				ps.setString(2,regBean.getPass());
+				ps.setInt(3,regBean.getAge());
+				ps.setString(4,regBean.getCity());
+				ps.setInt(5,regBean.getId());
+				int res=ps.executeUpdate();
+				if(res>0)
+				{
+					result=true;
+				}}
+		catch(Exception ex)
+		{
+			throw new CustomerException("Customer ID Existing");
+		}
+		return result;
+		}
+	
+	
+	public boolean changePassword(ChangePasswordBean cBean) throws CustomerException
+	{
+		
+		Boolean result=false;
+		try
+		{
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=(PreparedStatement) com.prepareStatement("update Customer set pass=? where id=? and pass=?");
+			ps.setString(1,cBean.getconfirmpass());
+			ps.setInt(2,cBean.getId());
+			ps.setString(3,cBean.getPass());
+			int res=ps.executeUpdate();
+			if(res>0)
+			{
+				result=true;
+			}
+		}
+		catch(Exception ex)
+		{
+			throw new CustomerException("Incorrect Password");
+		}
+		return result;
+		}	
+	}
+	
+
+

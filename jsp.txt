@@ -1,0 +1,328 @@
+1.Create a web application to create a jsp page named index.jsp with the given screen design.
+When u click the show button , dispaly the name attached with Welcome User .. in the same page.
+Use control name as "name"
+
+<form> 
+Enter Name<input type="text" name="name">
+<input type="submit" value="Show">
+</form>
+<%!
+String name;
+%>
+<%
+if(request.getParameter("name")!=null)
+{
+	 name=request.getParameter("name");
+	out.println("Welcome User "+name);	
+	}
+%>
+**********************************************************************************************************
+2.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" display valid user ..else invalid user..
+Use control names as "username" and "password"
+
+<FORM action="index.jsp" METHOD="POST">
+<table>
+            <tr><td>Login Name</td><td><INPUT TYPE="TEXT" NAME="username"></td><br>
+           <tr><td>Password</td><td><input type="password" name="password"></td><br>
+            
+            <tr><td></td><td align="right"><INPUT TYPE="SUBMIT" value="Login" ></td>
+            </tr>
+            </table>
+</FORM>
+<%
+if(request.getParameter("username")!=null && request.getParameter("password")!= null){
+	 if( request.getParameter("username").equals("sa")  && request.getParameter("password").equals("pass"))
+	{
+		out.println("Valid User") ; 
+	}
+	else 
+	{
+		out.println("Invalid User");
+	}
+}
+%>
+</body>
+</html>
+*****************************************************************************************************
+3.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" display valid user ..else invalid user..
+The valid user should be displayed in Green Color and bold text.
+The invalid user should be displayed in Red Color and Itallic text.
+Use control names as "username" and "password"
+
+<FORM action="index.jsp" METHOD="POST">
+<table>
+            <tr><td>Login Name</td><td><INPUT TYPE="TEXT" NAME="username"></td><br>
+           <tr><td>Password</td><td><input type="password" name="password"></td><br>
+            
+            <tr><td></td><td align="right"><INPUT TYPE="SUBMIT" value="Login" ></td>
+            </tr>
+            </table>
+</FORM>
+<%
+if(request.getParameter("username")!=null && request.getParameter("password")!= null){
+	 if( request.getParameter("username").equals("sa")  && request.getParameter("password").equals("pass"))
+	{%>
+		<font color="green"><b>Valid User</font>
+	<% }
+	else 
+	{%>
+			<font color="red"><i>InValid User</i></font>
+	<% }
+}
+%>
+</body>
+</html>
+****************************************************************************************************
+4.Create a web application to create a jsp page for multiplication table. Same as Servlet Day2 Question . But here use only JSP for it.
+Ie. The textbox for entering the number and its multiplication table should in a single page.. 
+Use control name as number
+Note : Refer Sample Screens
+
+<form>
+Enter Number<input type="number" name="num">
+<input type="submit" value="Show">
+</form>
+<%
+if(request.getParameter("num")!=null){
+String b=request.getParameter("num");
+int num=Integer.parseInt(b);
+out.println("<html><body><table border=1 width=50%");
+for(int i=1;i<=12;i++)
+{
+	out.println("<tr><td>"+num+"</td><td>X</td><td>"+i+"</td><td>=</td><td>"+num*i+"</td></tr>");
+}
+}
+out.println("</html></body></table>");
+%>
+</body>
+</html>
+***************************************************************************************************
+5.1.Create an index.jsp page.
+2.Add a country dropdown list with the following values in it . [NA , India , China , Pakistan , France]
+3.Add a submit button named "SHOW CAPITAL".
+4.Show the capital when u click the submit button as Follows 
+			Capital is + capital
+For example if India is selected Capital is Delhi			 
+If NA is Selected then "Invalid Country".
+
+<form>
+Select country
+<select name="country">
+<option value="1" >NA</option>
+<option value="2">India</option>
+<option value="3">China</option>
+<option value="4">Pakistan</option>
+<option value="5">France</option>
+<input type="submit" value="SHOW_CAPITAL">
+</form>
+<%
+if(request.getParameter("country")!=null){
+String b=request.getParameter("country");
+int n=Integer.parseInt(b);{
+	switch(n)
+	{
+	case 1:
+		out.println("Invalid Country");
+		break;
+	case 2:
+		out.println("Capital is Delhi");
+		break;
+	case 3:
+		out.println("Capital is Beijing");
+		break;
+	case 4:
+		out.println("Capital is Islamabad");
+		break;
+	case 5:
+		out.println("Capital is Paris");
+}
+}
+}
+%>
+</select>
+</body>
+</html>
+
+************************************************************************************************************
+6.Create a web application :
+1.Create an index.jsp page.
+2.Add a country dropdown list with the following values in it . [NA , India , China , Pakistan , France]
+3.Add a submit button named "SHOW CITIES".
+4.When clicks SHOW CITIES show another drop down list with Cities corresponding to the Country Selected.
+Use control names as "country" and associated countryname_cities
+Note : Refer Sample Screens
+
+<form>
+Select country
+<select name="country">
+<option value="1" >NA</option>
+<option value="2">India</option>
+<option value="3">China</option>
+<option value="4">Pakistan</option>
+<option value="5">France</option>
+<input type="submit" value="SHOW_CAPITAL">
+</form>
+<%
+if(request.getParameter("country")!=null){
+String b=request.getParameter("country");
+int n=Integer.parseInt(b);{
+	switch(n)
+	{
+	case 1:
+		out.println("Invalid Country");
+		break;
+	case 2:
+		out.println("select City<select><option>Chennai</option><option>Bengaluru</option><option>Cochin</option></select>");
+		 break;
+	case 3:
+		out.println("select City<select><option>Beijing</option><option>Shanghai</option><option>Tianjin</option></select>");
+		 break;
+	case 4:
+		out.println("select City<select><option>Islamabad</option><option>Karachi</option><option>Lahore</option></select>");
+		break;
+	case 5:
+		out.println("select City<select><option>Paris</option><option>Lyon</option><option>Bordeaux</option></select>");
+}
+}
+}
+%>
+</body>
+</html>
+
+*******************************************************************************************************************************************
+7.Create a web application :
+1.Create an index.jsp page.
+2.Add 2 buttons labeled CAR and BIKE and add an image control.
+3. When u click car button show the Car image inside the IMG control
+4. When u click bike button show the Bike image inside the IMG control
+
+<form>
+<input type="submit" name="car" value="CAR">
+<input type="submit" name="bike" value="BIKE">
+</form>
+<%
+if(request.getParameter("car")!=null)
+{%>
+	<img src="car.jpg" align="left">
+<% }%>
+<% if(request.getParameter("bike")!=null)
+{%>
+<img src="bike.jpg" align="left">
+<%} %>
+</body>
+</html>
+
+*************************************************************************************************************************
+8.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" 
+If the use is valid go to Home.jsp page and display the Message 
+Welcome User + username
+else
+ Go to Error.jsp and Display 
+ " Invalid Credentials "
+Use control names as "username" and "password"
+
+<form>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td></td><td align="right"><input type="submit" value="Login"></td>
+</tr>
+</form>
+<%
+String name=request.getParameter("name");
+String pass=request.getParameter("pass");
+if(name!=null && pass!=null){
+ if(name.equals("sa") && pass.equals("pass"))
+ {
+	 response.sendRedirect("home.jsp");
+ }
+ else
+ {
+	 response.sendRedirect("error.jsp"); 
+ }
+}
+ %>
+</body>
+</html>
+
+<body>
+ <form><b>Welcome User sa</b></form>
+</body>
+
+<body>
+<form><b><font size="5">Invalid Credentials</form></b></font>
+</body>
+
+**********************************************************************************************************
+9.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" 
+If the use is valid go to Home.jsp page and display the Message 
+Welcome User + username
+else
+ Go to Error.jsp and Display  
+ 			" Login Failed " :
+ 			" Reason " : reason.
+ 			
+ 	The reason should display why login is failed the possible reasons are 
+ 			1. User Id Wrong
+ 			2. Password Wrong
+ 			3. User Id blank
+ 			4. Password blank
+ 			
+<form>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td></td><td align="right"><input type="submit" value="Login"></td>
+</tr>
+</form>
+<%
+String name=request.getParameter("name");
+String pass=request.getParameter("pass");
+if(name!=null && pass!=null){
+ if(name.equals("sa") && pass.equals("pass"))
+ {
+	 RequestDispatcher dispath=request.getRequestDispatcher("home.jsp");
+	dispath.forward(request,response);
+ }
+ else
+ {
+	 RequestDispatcher dispath=request.getRequestDispatcher("error.jsp");
+	 dispath.forward(request,response);
+ }
+}
+%>
+</body>
+</html>
+
+<form><b><font size="5">Login Failed:</font></b>
+<br>
+<br>
+<br>
+<% 
+ if(name.length()==0)
+ {
+	 out.println("Reason:User Id blank")
+ }
+ else if(pass.l))
+ {
+	 out.println("Reason:Password blank");
+ }
+ else if(!name.equals("name"))
+ {
+	 out.println("Reason:User Id Wrong");
+ }
+ else if(!name.equals("pass"))
+ {
+	 out.println("Reason:Password Wrong");
+ }
+%>
+</form>
+</body>
+</html>
+
+
+<form><b>Welcome User sa</b></form>

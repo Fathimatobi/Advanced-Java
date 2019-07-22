@@ -1,0 +1,731 @@
+1.public class UserCode 
+{
+    public boolean createTable()
+    {
+    	boolean isDone=true;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("create table Employee(EmpNo int primary key,FirstName VARCHAR(20),LastName VARCHAR(20))");
+			ps.execute();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+return isDone;
+    	
+    }
+}
+*********************************************************************************************
+2.public class UserCode 
+{
+    public boolean createTable()
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			Statement stmt=com.createStatement();
+			PreparedStatement rs=com.prepareStatement("create table Department(DeptNo int primary key,DeptName varchar(20),Location varchar(20))");
+			rs.execute();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+return isDone;
+    	
+    }
+}
+******************************************************************************************
+4.public class UserCode {
+	public boolean insertRecord(int id, String Fname, String Lname) {
+		boolean isDone = false;
+		try
+		{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+		PreparedStatement ps=com.prepareStatement("Insert into Employee values(?,?,?)");
+		ps.setInt(1,id);
+		ps.setString(2,Fname);
+		ps.setString(3,Lname);
+		ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isDone;
+	}
+
+}
+*********************************************************************************************
+5.public class UserCode 
+{
+    public boolean insertRecord(int id)
+    {
+    	boolean isDone=false;
+    	try
+		{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+		PreparedStatement ps=com.prepareStatement("Insert into Employee(EmpNo) values(?)");
+		ps.setInt(1,id);
+		ps.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return isDone;
+	}
+
+}
+public static void main(String[] args) 
+	{
+			UserCode uu=new UserCode();
+			Scanner sc=new Scanner(System.in);
+			int id=sc.nextInt();
+			// Call the method 
+			uu.insertRecord(id);
+	}
+
+}
+*****************************************************************************************************************************************************
+6.public class UserCode 
+{
+    public boolean updateRecord(int empno,String name)
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("update Employee set FirstName=? where EmpNo=?");
+			ps.setInt(2,empno);
+			ps.setString(1,name);
+			ps.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return isDone;
+    	
+    }
+}
+public static void main(String[] args) 
+	{
+			UserCode uu=new UserCode();
+			// Call the method 
+			Scanner sc=new Scanner(System.in);
+			System.out.println("enter empno");
+			int empno=sc.nextInt();
+			System.out.println("enter name");
+			String name=sc.next();
+			uu.updateRecord(empno,name);
+	}
+
+}
+*********************************************************************************************
+7.public class UserCode {
+	 public boolean updateRecord(int empno,String name)
+	    {
+	    	boolean isDone=false;
+	    	try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+				PreparedStatement ps=com.prepareStatement("update Employee set LastName=? where EmpNo=?");
+				ps.setInt(2,empno);
+				ps.setString(1,name);
+				ps.executeUpdate();
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		return isDone;
+	    	
+	    }
+	}
+***********************************************************************************************
+8.public class UserCode 
+{
+    public boolean updateRecord(int empno,String FirstName,String LastName)
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			PreparedStatement rs=com.prepareStatement("update Employee set FirstName=?,LastName=? where EmpNo=?");
+			rs.setString(1,FirstName);
+			rs.setString(2,LastName);
+			rs.setInt(3, empno);
+			rs.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+return isDone;
+    }
+}
+***********************************************************************************************
+9.public class UserCode 
+{
+    public String getRecord(int empno)
+    {
+    	String fName=null;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select FirstName from Employee where EmpNo=?");
+			ps.setInt(1,empno);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				fName=rs.getString(1);
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return fName; 
+        
+    }
+}
+*************************************************************************************************************
+10.public class UserCode 
+{
+    public String getRecord(int empno)
+    {
+    	String fName=null;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select LastName from Employee where EmpNo=?");
+			ps.setInt(1,empno);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				fName=rs.getString(1);
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	return fName; 
+        
+    }
+}
+*********************************************************************************************
+11.public class UserCode 
+{
+    public String getRecord(int empno)
+    {
+    	String fName=null;
+    	String lName=null;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3307/tempdb","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select FirstName,LastName from Employee where EmpNo=?");
+			ps.setInt(1,empno);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				fName=rs.getString(1);
+				lName=rs.getString(2);
+
+			}
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+return fName+lName;
+    	
+    }
+}
+**********************************************************************************************
+12.public class UserCode 
+{
+    public boolean alterTable(String columnName)
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement(("alter table Employee add ")+columnName+(" varchar(20)"));
+			int res=ps.executeUpdate();
+			if(res>0)
+			{
+				isDone=true;
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	 return isDone;
+    }
+ }
+****************************************************************************
+13.public class UserCode 
+{
+    public boolean alterTable(String columnName[])
+    {	
+    	String colname = null;
+	     boolean isDone=false;
+	     try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+				for(int i=0;i<columnName.length;i++)
+				{
+				PreparedStatement ps=com.prepareStatement(("alter table Employee add ")+columnName[i]+(" varchar(20)"));
+				int res=ps.executeUpdate();
+				if(res>0)
+				{
+					isDone=true;
+				}
+				}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	 return isDone;
+	    }
+	 }
+**********************************************************************************************
+14.public class UserCode 
+{
+    public boolean deleteRecord(int empno)
+    {
+    	boolean isDone=false;
+try
+{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+		PreparedStatement ps=com.prepareStatement("delete from Employee where EmpNo=?");
+		ps.setInt(1,empno);
+		ps.executeUpdate();
+	} catch (ClassNotFoundException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	 return isDone;
+}
+}
+*********************************************************************************************
+15.public class UserCode 
+{
+    public boolean nullifyRecord(int empno)
+    {
+    	boolean isDone=false;
+    	try
+    	{
+    			Class.forName("com.mysql.jdbc.Driver");
+    			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+    			PreparedStatement ps=com.prepareStatement("update Employee set LastName=null where EmpNo=?");
+    			ps.setInt(1,empno);
+    			ps.executeUpdate();
+    		} catch (ClassNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (SQLException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		 return isDone;
+    	}
+    	}
+************************************************************************************************
+16. public boolean insertRecord(int deptno,String deptName,String Location)
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("insert into Department values(?,?,?)");
+			ps.setInt(1,deptno);
+			ps.setString(2,deptName);
+			ps.setString(3, Location);
+			ps.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return isDone;
+	}	
+  }
+*******************************************************************************************************
+17.public class UserCode 
+{
+    public boolean insertRecord(int deptno,String Location)
+    {
+    	boolean isDone=false;
+    	try 
+    	{
+    		Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("insert into Department(DeptNo,Location) values(?,?)");
+			ps.setInt(1,deptno);
+			ps.setString(2, Location);
+			ps.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return isDone;
+	}	
+  }
+**********************************************************************************************
+18.public class UserCode 
+{
+    public List<String> getNames(String job)
+    {
+    	List<String> temp=null;
+    	temp=new ArrayList<String>();
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select FirstName from Employee where Job=?");
+			ps.setString(1,job);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				temp.add(rs.getString(1));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return temp;
+    	
+    }
+}         /*
+    	 * WAP to return the First Names of employees based on the Job Passed as 
+    	 * Arguments from the Employee Table.
+    	 */ 
+    	
+    	//Fill your Code
+   
+***************************************************************************************************
+19.public class UserCode 
+{
+    public Map<Integer,String> getDetails()
+    {
+    	Map<Integer,String> temp=null;
+    	temp=new TreeMap<Integer,String>();
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select EmpNo,FirstName from Employee");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				temp.put(rs.getInt(1),rs.getString(2));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return temp;
+    	
+    }
+}/*
+    	 * WAP to return a map contain EmpNo and FirstName of all employees from Employee table.
+    	 * Store the Empno's in the ascending order .
+    	 * Hint : use TreeMap
+    	 */ 
+***********************************************************************************************************************************************
+20.public class UserCode 
+{
+    public Map<Integer,String> getDetails()
+    {
+    	Map<Integer,String> temp=null;
+    	temp=new TreeMap<Integer,String>();
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select EmpNo,FirstName from Employee where FirstName like 'a%' ");
+		
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				temp.put(rs.getInt(1),rs.getString(2));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return temp;
+    	
+    }
+}
+    	/*
+    	 * WAP to return a map contain EmpNo and FirstName of all employees from Employee table whose FirstName starts with 'A'
+    	 * Store the Empno's in the ascending order .
+    	 * Hint : use TreeMap
+    	 */ 
+    	  
+********************************************************************************************************************************************
+21.public class UserCode 
+{
+    public boolean insertRecord(int depNo,String deptName,String loc)
+    {
+    	boolean isDone=false;
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("insert into Department values(?,?,?)");
+			ps.setInt(1,depNo);
+			ps.setString(2,deptName);
+			ps.setString(3,loc);
+			ps.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	return isDone;
+	}	
+  }
+/*
+    	 * WAP to insert a row into the following table (values passed as arguments)
+    	 	 Table Name: Department
+    	 Columns : DeptNo int primary key 
+                   DeptName varchar(20)
+                   Location varchar(20)
+    	 */ 
+public static void main(String[] args) 
+	{
+			UserCode uu=new UserCode();
+			Scanner sc=new Scanner(System.in);
+			System.out.println("enter id");
+			int id=sc.nextInt();
+			System.out.println("enter fname");
+			String Fname=sc.next();
+			System.out.println("enter lname");
+			String Lname=sc.next();
+			// Call the method 
+			System.out.println(uu.insertRecord(id, Fname, Lname));
+	}
+
+}
+**************************************************************************************************************************************
+22./*Write a Program to update a row into the following table (Update DeptName based on DeptNo passed)
+
+    	Table Name: Department
+
+    	Precondition : 
+    	i)Table “Department” with column name should present
+    	ii)Value should be inserted
+    	iii)inserted value to be updated. 
+        Columns :   DeptNo int , DeptName varchar(20) , Location varchar(20)  	*/ 
+    	
+    	//Fill ur Code
+public class UserCode 
+{
+    public boolean updateRecord(int deptNo,String deptName)
+    {
+         boolean isDone=false;
+         try 
+     	{
+     		Class.forName("com.mysql.jdbc.Driver");
+ 			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+ 			PreparedStatement ps=com.prepareStatement("update Department set DeptName=? where DeptNo=?");
+ 			ps.setString(1,deptName);
+ 			ps.setInt(2,deptNo);
+ 			ps.executeUpdate();
+ 		} catch (ClassNotFoundException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		} catch (SQLException e) {
+ 			// TODO Auto-generated catch block
+ 			e.printStackTrace();
+ 		}
+     	
+     	return isDone;
+ 	}	
+   }
+*********************************************************************************************************************
+23.public class UserCode 
+{
+    public List<String> getNames(String loc)
+    {
+    	List<String> temp=null;
+    	temp=new ArrayList<String>();
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select DeptName from Department where Location=?");
+			ps.setString(1,loc);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				temp.add(rs.getString(1));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return temp;
+    	
+    }
+}
+/*
+    	 * WAP to return the DeptName based on the Location Passed as Arguments from the Department Table.
+    	 * Table Name: Department
+
+                  Precondition : 
+                   i)Table “Department” with column name should present
+                   ii)Value should be inserted
+                   iii)inserted value to be updated. 
+                   Columns :   DeptNo int , DeptName varchar(20) , Location varchar(20)  	 
+    	 */ 
+***********************************************************************************************************************
+24.public class UserCode 
+{
+    public Map<Integer,String> getDetails()
+    {
+    	Map<Integer,String> temp=null;
+    	temp=new TreeMap<Integer,String>();
+    	try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("select DeptNo,DeptName from Department where DeptName like 'C%' and DeptName like '%l' ");
+		
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				temp.put(rs.getInt(1),rs.getString(2));
+			}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+	return temp;
+    	
+    }
+}
+public class MyMain {
+
+	public static void main(String[] args) 
+	{
+			UserCode uu=new UserCode();
+			// Call the method 
+			System.out.println(uu.getDetails());
+	}
+
+}
+/*
+    	WAP to return a map contain DepNo and DeptName of all from Department table whose DeptName starts with 'C' and
+    	ends with 'l',
+    	Store the DepNo's in the ascending order .
+    	Hint : use TreeMap
+    	 */ 
+    	//Fill ur Code
+************************************************************************************************************************************************************************
+25.public class UserCode 
+{
+    public boolean alterTable(String columnName[])
+    {
+    	String colname = null;
+	     boolean isDone=false;
+	     try 
+	    	{
+	    		Class.forName("com.mysql.jdbc.Driver");
+				Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+				for(int i=0;i<columnName.length;i++)
+					{
+					PreparedStatement ps=com.prepareStatement(("alter table Department add ")+columnName[i]+(" varchar(20)"));
+					int res=ps.executeUpdate();
+					if(res>0)
+					{
+						isDone=true;
+					}
+					}
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	    	
+	    	return isDone;
+		}	
+	  }
+/*
+    	 * WAP to alter the table in the database by adding the varchar(20) columns ,column names will be passed as array.
+    	 * Table Name: Department
+    	 * Existing Columns : DeptNo int, 
+DeptName varchar(20), 
+Location varchar(20)
+    	 */ 
+****************************************************************************************************************************
+    	

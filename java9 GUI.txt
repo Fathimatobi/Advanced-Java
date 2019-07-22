@@ -1,0 +1,492 @@
+1.public class UserCode extends JFrame {
+	JFrame frame;
+	public void makeFrame(String title) {
+		frame=new JFrame(title);
+		frame.setSize(400,500);
+		frame.setLayout(null);
+		frame.setVisible(true);
+		/*
+		 * Write a Program to Make a Frame with title Passed as Argument. Hint :
+		 * Use JFrame class in swing package
+		 */
+		
+	}
+}
+*******************************************************************************************
+2.public class UserCode {
+	JFrame frame;
+	public void makeFrame(String title, int height,int width) {
+		frame=new JFrame(title);
+		frame.setSize(width,height);
+		frame.setLayout(null);
+		frame.setVisible(true);
+	}
+}
+/* Write a Program to Make a Frame with title Passed as Argument. Set
+		 * the height and width based on the argument Hint : Use JFrame class in
+		 * swing package . And use setSize method to set the size.
+		 */
+****************************************************************************************
+3.public class UserCode extends JFrame
+{
+	JFrame frame;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				frame.setSize(400,500);
+				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				frame.setLayout(null);
+				frame.setVisible(true);
+}
+}
+				
+				/*
+				 * Write a Program to Make a Frame with title "Sparta".
+				 * Make sure that when you click the close button on frame , the frame getting closed.
+				 * Hint : Use JFrame class in swing package . use the setDefaultCloseOperation method of Frame.
+				 * */
+***************************************************************************************			
+4.public class UserCode 
+{
+		JFrame frame;
+		Label l;
+		Panel p;
+				public void makeFrame()
+				{
+					frame=new JFrame();
+					l=new Label("Enter Name");
+					p=new Panel();
+					p.add(l);
+					frame.add(l);
+					frame.setVisible(true);
+				}
+}
+                    /*
+					 * Write a Program to Make a Frame Screen According to the Expected Result.
+					 * Add a Label
+					 */
+****************************************************************************************
+6.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p; 
+	JLabel l;
+	JLabel l1;
+	JTextField text;
+	JPasswordField text1;
+			public void makeFrame()
+			{
+				frame=new JFrame();
+				p=new JPanel();
+				l=new JLabel("Enter Name");
+				text=new JTextField(20);
+				p.add(l);
+				p.add(text);
+			    l1=new JLabel("Enter Password");
+				text1=new JPasswordField(20);
+				p.add(l1);
+				p.add(text1);
+				frame.add(p);
+				add(p);
+				frame.setSize(400,500);
+				setVisible(true);
+			}
+} 
+			
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Add a Label and TextField and PasswordField
+				 */
+******************************************************************************************
+9.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JRadioButton r;
+	JRadioButton r1;
+	JButton b;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				p=new JPanel();
+				l=new JLabel("Select Gender");
+				r=new JRadioButton("Male");
+				r1=new JRadioButton("Female");
+				b=new JButton("Register");
+				frame.setSize(400,500);
+				p.add(l);
+				p.add(r);
+				p.add(r1);
+				p.add(b);
+				add(p);
+				setVisible(true);
+			}
+}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Add Labal ,RadioButton and Button
+				 */
+			
+****************************************************************************************************
+10.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JCheckBox c;
+	JCheckBox c1;
+	JCheckBox c2;
+	JCheckBox c3;
+	JButton b;
+			public void makeFrame()
+			{
+				frame=new  JFrame("Sparta");
+				p=new JPanel();
+				l=new JLabel("Select You Hobbies..");
+				c=new JCheckBox("Reading");
+				c1=new JCheckBox("Sleeping");
+				c2=new JCheckBox("Painting");
+				c3=new JCheckBox("Travelling");
+				b=new JButton("Register");
+				p.add(l);
+				p.add(c);
+				p.add(c1);
+				p.add(c2);
+				p.add(c3);
+				p.add(b);
+				add(p);
+				setVisible(true);
+			}
+}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Add Label ,Check Boxes and Button*/
+*************************************************************************************
+11.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JTextArea t;
+	JButton b;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				frame.setSize(400,400);
+				p=new JPanel();
+				l=new JLabel("Enter Your Feedback");
+				t=new JTextArea(10,50);
+				b=new JButton("Submit");
+				p.add(l);
+				p.add(t);
+				p.add(b);
+				add(p);
+				setVisible(true);
+			}
+}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Add Label ,TextArea and Button
+				 */
+			
+*********************************************************************************************
+12.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JLabel l1;
+	JTextField t;
+	JTextField t1;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				p=new JPanel();
+				l=new JLabel("Name");
+				t=new JTextField();
+				p.add(l);
+				p.add(t);
+				p.setLayout(new GridLayout(4,1));
+				l1=new JLabel("City");
+				t1=new JTextField();
+				p.add(l1);
+				p.add(t1);
+				add(p);
+				setVisible(true);
+			    
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Add Labels and TextField
+				 * Use GridLayOut to arrange the items in row column format.
+				 */
+			}
+}
+***********************************************************************************************************************************************
+13.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JLabel l1;
+	JLabel l2;
+	JTextField t;
+	JPasswordField passw;
+	JButton b;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				p=new JPanel();
+				l=new JLabel("Name");
+				t=new JTextField();
+				p.add(l);
+				p.add(t);
+				l1=new JLabel("Password");
+				passw=new JPasswordField();
+				p.add(l1);
+				p.add(passw);
+				l2=new JLabel();
+				b =new JButton("Login");
+				p.add(l2);
+				p.add(b);
+				p.setLayout(new GridLayout(3,2));
+				add(p);
+				setVisible(true);
+			}
+}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Create a Login Screen
+				 * Use GridLayOut to arrange the items in row column format.
+				 */
+**********************************************************************************************
+14.public class UserCode extends JFrame implements ActionListener
+	{
+		JFrame frame;
+		JPanel p;
+		JLabel l;
+		JLabel l1;
+		JLabel l2;
+		JTextField t;
+		JPasswordField passw;
+		JButton b;
+				public void makeFrame()
+				{
+					frame=new JFrame("Sparta");
+					p=new JPanel();
+					l=new JLabel("Name");
+					t=new JTextField(20);
+					p.add(l);
+					p.add(t);
+					l1=new JLabel("Password");
+					passw=new JPasswordField(20);
+					p.add(l1);
+					p.add(passw);
+					l2=new JLabel();
+					b =new JButton("Login");
+					p.add(l2);
+					p.add(b);
+					p.setLayout(new GridLayout(3,2));
+					add(p);
+				    b.addActionListener(this);
+					setVisible(true);
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+		            if(t.getText().equals("sa") && passw.getText().equals("pass")){
+		                JOptionPane.showMessageDialog(this,"Valid User");
+					}
+		            else
+		            	JOptionPane.showMessageDialog(this,"InValid User");
+				}
+				}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Create a Login Screen
+				 * Use GridLayOut to arrange the items in row column format.
+				 * When you click on the login button if name is "sa" and password is "pass" display a dialog box with "Valid User"
+				 */
+		
+****************************************************************************************************************
+16.public class UserCode extends JFrame implements ActionListener
+	{
+		JFrame frame;
+		JPanel p;
+		JLabel l;
+		JLabel l1;
+		JTextField t;
+		JPasswordField passw;
+		JButton b;
+		JButton b1;
+				public void makeFrame()
+				{
+					frame=new JFrame("Sparta");
+					p=new JPanel();
+					l=new JLabel("Name");
+					t=new JTextField(20);
+					p.add(l);
+					p.add(t);
+					l1=new JLabel("Password");
+					passw=new JPasswordField(20);
+					p.add(l1);
+					p.add(passw);
+					b1=new JButton("Reset");
+					b =new JButton("Login");
+					p.add(b1);
+					p.add(b);
+					p.setLayout(new GridLayout(3,2));
+					frame.add(p);
+					frame.setVisible(true);
+					 b.addActionListener(this);
+				}
+				@Override
+				public void actionPerformed(ActionEvent e) {
+		            if(t.getText().equals("sa") && passw.getText().equals("pass")){
+		                JOptionPane.showMessageDialog(this,"Valid User");
+					}
+		            else{
+		            	JOptionPane.showMessageDialog(this,"InValid User");
+				}
+				 b1.addActionListener(new ActionListener(){
+				 @Override
+				 public void actionPerformed(ActionEvent e) {
+					 t.setText("");
+					 passw.setText("");
+				 }});
+				 }
+	}
+				 
+				 
+              
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Create a Login Screen
+				 * Use GridLayOut to arrange the items in row column format.
+				 * When you click on the login button if name id "sa" and password is "pass" display a dialog box with "Valid User"
+				 * else display "Invalid User";
+				 * When u click on reset button make the fields blank.
+				 */
+		
+***********************************************************************************************
+17.public class UserCode extends JFrame
+{
+	JFrame frame;
+	JPanel p;
+	JLabel l1;
+	JLabel l2;
+	JLabel l3;
+	JLabel l4;
+	JTextField t;
+	JTextField t1;
+	JPasswordField passw;
+	JComboBox c;
+	JButton b;
+	JButton b1;
+			public void makeFrame()
+			{
+				frame=new JFrame("Sparta");
+				p=new JPanel();
+				l1=new JLabel("Name");
+				t=new JTextField(20);
+				p.add(l1);
+				p.add(t);
+				l2=new JLabel("Password");
+				passw=new JPasswordField();
+				p.add(l2);
+				p.add(passw);
+				l3=new JLabel("City");
+				String[] country={"Chennai","Bangalore"};
+				c=new JComboBox(country);
+				p.add(l3);
+				p.add(c);
+				l4=new JLabel("Address");
+				t1=new JTextField(20);
+				p.add(l4);
+				p.add(t1);
+				b=new JButton("Reset");
+				b1=new JButton("Save");
+				p.add(b);
+				p.add(b1);
+				p.setLayout(new GridLayout(5,2));
+				frame.add(p);
+				frame.setVisible(true);
+			}
+}
+				/*
+				 * Write a Program to Make a Frame Screen According to the Expected Result.
+				 * Create Registration Screen
+				 * Use GridLayOut to arrange the items in row column format.
+				 * City combo should contain "Chennai" and "Bangalore" as values.
+				 * Address should be multi line .ie . use textarea.
+				 */
+*************************************************************************************************************
+public class frame extends JFrame implements ActionListener{
+	JFrame frame;
+	JPanel p;
+	JLabel l;
+	JLabel  l1;
+	JLabel l2;
+	JLabel l3;
+	JTextField t;
+	JTextField t1;
+	JComboBox c;
+	JButton b;
+	public void makeframe()
+	{
+		frame =new JFrame("register");
+		p=new JPanel();
+		l=new JLabel("empno");
+		t=new JTextField(20);
+		p.add(l);
+		p.add(t);
+		l1=new JLabel("Name");
+		t1=new JTextField(20);
+		p.add(l1);
+		p.add(t1);
+		l2=new JLabel("city");
+		String city[]={"chennai","Bangalore","Kerala","Hyderabad"};
+		c=new JComboBox(city);
+		p.add(l2);
+		p.add(c);
+		l3=new JLabel();
+		b=new JButton("save");
+		p.add(l3);
+		p.add(b);
+		frame.add(p);
+		frame.setVisible(true);
+		p.setLayout(new GridLayout(4,2));
+		b.addActionListener(this);
+		
+		
+	}
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		// TODO Auto-generated method stub
+		try
+		{
+		Class.forName("com.mysql.jdbc.Driver");
+		Connection com=(Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/me","root","dsrc");
+		PreparedStatement ps=(PreparedStatement) com.prepareStatement("insert into Demo values(?,?,? )");
+		
+		ps.setInt(1,Integer.parseInt(t.getText()));
+		ps.setString(2,t1.getText());
+		ps.setString(3,c.getSelectedItem().toString());
+		ps.executeUpdate();
+		JOptionPane.showMessageDialog(this,"Data Saved");
+		
+	}
+		catch(ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public static void main(String[] args) {
+		frame f=new frame();
+		f.makeframe();
+	}
+}
+**********************************************************************************			

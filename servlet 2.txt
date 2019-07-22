@@ -1,0 +1,421 @@
+1.<form action="LoginServlet" method="post">
+<center>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td></td><td align="right"><input type="submit" value="Login"></td>
+</tr>
+</center>
+</table>
+</form>
+</body>
+</html> 
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String pass=request.getParameter("pass");
+		if(name.equals("sa") && pass.equals("pass"))
+		{
+			out.println("Welcome user");
+		}
+		else
+		{
+			out.println("Invlaid user");
+		}
+	}
+*****************************************************************************************************************************************
+2.If the username is 'sa' and password is 'pass' , go to a new html page called home.html. Inside home.html set the message ..
+ Welcome User
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String pass=request.getParameter("pass");
+		if(name.equals("sa") && pass.equals("pass"))
+		{
+		response.sendRedirect("home.html");
+		}
+		}
+}
+
+<center>
+<form><b><font size="5">Welcome User</form></font>
+</center>
+****************************************************************************************************************************
+3.If the username is 'sa' and password is 'pass' , go to a new html page called home.html. Inside home.html set the message ..
+ Welcome User
+ if invalid user go to another page called error.html . display the message inside error.html as Invalid User in RED color.
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String pass=request.getParameter("pass");
+		if(name.equals("sa") && pass.equals("pass"))
+		{
+		response.sendRedirect("home.html");
+		}
+		else
+		{
+		response.sendRedirect("error.html");
+		}
+		}
+}
+
+<center>
+<form><b><font size="5">Welcome User</form></font>
+</center>
+
+<center>
+<form><b><font size="5" color="red">Invalid User!.</form></font>
+</center>
+**************************************************************************************************************************
+4.If the username is 'sa' and password is 'pass' check for the role. 
+If the role selected is Admin go to a new html page called Adminhome.html with Welcome Admin
+If the role selected is User go to a new html page called Userhome.html with Welcome User
+If invalid user go to another page called error.html . display the message inside error.html as Invalid User in RED color.
+
+<form action="LoginServlet" method="post">
+<center>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td>Role</td><td><select id>
+<option value="1" >User</option>
+<option value="2">Admin</option>
+</select>
+<tr><td></td><td align="left"><input type="submit" value="Login"></td>
+</tr>
+</center>
+</table>
+</form>
+
+PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String pass=request.getParameter("pass");
+		int n= Integer.parseInt(request.getParameter("id"));
+		if(name.equals("sa") && pass.equals("pass"))
+		{
+			switch(n) 
+			{
+			case 1:
+			response.sendRedirect("Userhome.html");
+			break;
+			case 2:
+				response.sendRedirect("Adminhome.html");
+				break;
+		default:
+			response.sendRedirect("error.html");
+		}
+	}
+		else
+		{
+			response.sendRedirect("error.html");
+		}
+		}
+}
+
+<center>
+<form><b><font size="5">Welcome User</form></font>
+</center>
+
+<center>
+<form><b><font size="5">Welcome Admin</form></font>
+</center>
+
+<center>
+<form><b><font size="5" color="red">Invalid User!.</form></font>
+</center>
+
+***********************************************************************************************************************************
+5.Create a WebApplication to accept a number through index.html page and display its multiplication table up to 12 using the 
+	MultiplyTableServlet.
+
+<form action="MultiplyTableServlet" method="post">
+<center>
+<table>
+<tr><td>Enter Number</td><td><input type="number" name="num"></td>
+<tr><td></td><td align="left"><input type="submit" value="Login"></td>
+</tr>
+</center>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		int num=Integer.parseInt(request.getParameter("num"));
+		out.println("<html><body><table border=1 width=50%>");
+		for(int i=1;i<=12;i++)
+		{
+			out.println("<tr><td>"+num+"</td><td>X</td><td>"+i+"</td><td>=</td><td>"+num*i+"</td></tr>");
+		}
+	}
+}
+******************************************************************************************************************************
+6.Create a WebApplication to accept Country Name using a DropDownList and Print the Cities from the given List using GetServlet
+
+
+Country     Cities to be printed.. 
+
+India 		 Chennai , Bengaluru , Cochin
+USA		     Atlanta , Chicago , Dallas ,Florida
+Australia	 Sidny , Canbara
+
+<form action="LoginServlet" method="post">
+<center>
+<table>
+<form>
+<tr><td>Select Counrty</td><td>
+<select name="id">
+<option value="1" >India</option>
+<option value="2">USA</option>
+<option value="3">Australia</option>
+</select>
+<td><input type="submit" value="Submit"></td>
+</td>
+</tr>
+</form>
+</table></center>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		int n= Integer.parseInt(request.getParameter("id"));
+		{
+			switch(n) 
+			{
+			case 1:
+			response.sendRedirect("NewFile.html");
+			break;
+			case 2:
+				response.sendRedirect("Adminhome.html");
+				break;
+			case 3:
+				response.sendRedirect("Adminhome1.html");
+				
+	}
+		}
+	}
+}
+
+
+
+<center>
+<form><b><font size="5">Cities</font></b></form>
+<br>
+<br>
+<form> Chennai , Bengaluru , Cochin</form>
+</center>
+
+<center>
+<form><b><font size="5">Cities</font></b></form>
+<br>
+<br>
+<form>Atlanta , Chicago , Dallas ,Florida</form>
+</center>
+
+<center>
+<form><b><font size="5">Cities</font></b></form>
+<br>
+<br>
+<form> Sidny , Canbara</form>
+</center>
+********************************************************************************************************************
+7.Country     Cities to be printed.. 
+
+India 		 Chennai , Bengaluru , Cochin
+USA		     Atlanta , Chicago , Dallas ,Florida
+Australia	 Sidny , Canbara
+
+
+The Cities to be displayed in a DrodDown List
+
+<form action="LoginServlet" method="post">
+<center>
+<table>
+<form>
+<tr><td>Select Counrty</td><td>
+<select name="id">
+<option value="1" >India</option>
+<option value="2">USA</option>
+<option value="3">Australia</option>
+</select>
+<td><input type="submit" value="Submit"></td>
+</td>
+</tr>
+</form>
+</table></center>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		int n= Integer.parseInt(request.getParameter("id"));
+		{
+			switch(n) 
+			{
+			case 1:
+			response.sendRedirect("NewFile.html");
+			break;
+			case 2:
+				response.sendRedirect("Adminhome.html");
+				break;
+			case 3:
+				response.sendRedirect("Adminhome1.html");
+				
+	}
+		}
+	}
+}
+
+<center>
+<form><b><font size="5">Cities</font></b>
+<br>
+<br>
+<select >
+<option >Chennai</option>
+<option>Bengaluru</option>
+<option >Cochin</option>
+</select>
+</center>
+</form>
+
+<center>
+<form><b><font size="5">Cities</font></b>
+<br>
+<br>
+<select >
+<option >Atlanda</option>
+<option>Chicago</option>
+<option >Dallas</option>
+<option >Florida</option>
+</select>
+</center>
+</form>
+
+<center>
+<form><b><font size="5">Cities</font></b>
+<br>
+<br>
+<select >
+<option >Sidny</option>
+<option>Canbara</option>
+</select>
+</center>
+</form>
+
+********************************************************************************************************************
+9.Create a WebApplication to accept details from the user for registration using RegistrationServlet.
+
+If any of the field is left blank ,display the error.html with message Registration Failed.
+Else Home.html with Message , " Welcome User  ,you are IN".
+
+<center>
+<form><b><font color="red">Registration Failed..Blank Values..</font></b></form>
+</center>
+
+<center>
+<form><b><font size="5">Success</font></b>
+</center>
+<br>
+<br>
+Welcome User,you are IN
+</form>
+
+<form action="DisplayServlet" method="post">
+<center>
+<table>
+<b><font size="5">Registration</font></b>
+<br>
+<br>
+<tr><td>Loin Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td>Age</td><td><input type="number" name="age"></td>
+<tr><td>Gender</td><td><input type="radio" name="r1">Male<input type="radio" name="r1">Female</td>
+<tr><td>Select Country</td><td>
+<select name="id">
+<option value="1" >India</option>
+<option value="2">USA</option>
+<option value="3">Australia</option>
+</select>
+<tr><td>Address</td><td><TextArea rows="4" columns="20" name="address"></TextArea></td>
+<tr><td>Email</td><td><input type="text" name="email"></td>
+<tr><td></td><td align="right"><input type="submit" value="Login"></td>
+</tr>
+</form>
+</table>
+
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		PrintWriter out=response.getWriter();
+		String name=request.getParameter("name");
+		String pass=request.getParameter("pass");
+		String age=request.getParameter("age");
+		String r1=request.getParameter("r1");
+		String address=request.getParameter("address");
+		String email=request.getParameter("email");
+		if(name.equals("") && pass.equals("") && age.equals("") && r1==null && address.equals("") && email.equals("") )
+		{
+		response.sendRedirect("error.html");
+		}
+		else
+		{
+		response.sendRedirect("home.html");
+		}
+		}
+}
+
+****************************************************************************************************************************
+8.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" 
+If the use is valid go to Home.jsp page and display the Message 
+Welcome User + username
+else
+ Go to Error.jsp and Display 
+ " Invalid Credentials "
+Use control names as "username" and "password"
+
+<form>
+<table>
+<tr><td>Login Name</td><td><input type="text" name="name"></td>
+<tr><td>Password</td><td><input type="password" name="pass"></td>
+<tr><td></td><td align="right"><input type="submit" value="Login"></td>
+</tr>
+</form>
+<%
+String name=request.getParameter("name");
+String pass=request.getParameter("pass");
+if(name!=null && pass!=null){
+ if(name.equals("sa") && pass.equals("pass"))
+ {
+	 response.sendRedirect("home.jsp");
+ }
+ else
+ {
+	 response.sendRedirect("error.jsp"); 
+ }
+}
+ %>
+</body>
+</html>
+
+<body>
+ <form><b>Welcome User sa</b></form>
+</body>
+
+<body>
+<form><b><font size="5">Invalid Credentials</form></b></font>
+</body>
+
+**********************************************************************************************************
+9.Create a web application to create a jsp page named login.jsp with the given screen design.
+If the username and password is "sa" and "pass" 
+If the use is valid go to Home.jsp page and display the Message 
+Welcome User + username
+else
+ Go to Error.jsp and Display  
+ 			" Login Failed " :
+ 			" Reason " : reason.
+ 			
+ 	The reason should display why login is failed the possible reasons are 
+ 			1. User Id Wrong
+ 			2. Password Wrong
+ 			3. User Id blank
+ 			4. Password blank
+ 			
+

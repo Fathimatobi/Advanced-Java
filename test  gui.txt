@@ -1,0 +1,180 @@
+package project;
+
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class register extends JFrame {
+	JFrame frame;
+	JPanel p;
+	JLabel l1;//opno
+	JLabel l2;//name
+	JLabel l4;//age
+	JLabel l5;//gender
+	JLabel l6;//address
+	JLabel l7;//contact number
+	JTextField t1;
+	JTextField t2;
+	JTextField t4;
+	JTextField t5;
+	JComboBox c;
+	JTextArea a1;
+	JButton b1;
+	JButton b2;
+	JButton b3;
+	JButton b4;
+	JTable j;
+public void makeframe()
+{
+	frame=new JFrame("Hospital Management Registeration Form");
+	String data[][]={};
+	String column[]={"opno/Department no","Name","Age","Gender","Address","Contact Number"};  
+	j=new JTable(data,column);
+	j.setBounds(30,40,200,300);
+	p=new JPanel();
+	l1=new JLabel("opno/Department no");
+	t1=new JTextField(10);
+	p.add(l1);
+	p.add(t1);
+	l2=new JLabel("Name");
+	t2=new JTextField(20);
+	p.add(l2);
+	p.add(t2);
+	l4=new JLabel("Age");
+	t4=new JTextField(2);
+	p.add(l4);
+	p.add(t4);
+	l5=new JLabel("Gender");
+	String select[]={" ","Male","Female"};
+	c=new JComboBox(select);
+	p.add(l5);
+	p.add(c);
+	l6=new JLabel("Address");
+	a1=new JTextArea(10,50);
+	p.add(l6);
+	p.add(a1);
+	l7=new JLabel("Contact Number");
+	t5=new JTextField(10);
+	p.add(l7);
+	p.add(t5);
+	b1=new JButton("UPDATE");
+	p.add(b1);
+	b2=new JButton("RESET");
+	p.add(b2);
+	b3=new JButton("DELETE");
+	p.add(b3);
+	b4=new JButton("SAVE");
+	p.add(b4);
+	p.setLayout(new GridLayout(9,2));
+	frame.setSize(400,500);
+	JScrollPane sp=new JScrollPane(j);
+	frame.add(p);
+	p.add(sp);
+	frame.setVisible(true);
+	b4.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			try {
+				Class.forName("com.mysql.jdbc.Driver");
+				Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+				PreparedStatement ps=com.prepareStatement("Insert into form values(?,?,?,?,?,?)");
+						ps.setInt(1,Integer.parseInt(t1.getText()));
+				        ps.setString(2,t2.getText());
+				        ps.setInt(3,Integer.parseInt(t4.getText()));
+				        ps.setString(4,c.getSelectedItem().toString());
+				        ps.setString(5,a1.getText());
+				        ps.setInt(6,Integer.parseInt(t5.getText()));
+				ps.executeUpdate();
+				JOptionPane.showMessageDialog(frame,"Data Saved");
+			
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+		}
+	});
+		b2.addActionListener(new ActionListener(){
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 t1.setText("");
+				 t2.setText("");
+				 t4.setText("");
+				 t5.setText("");
+				 a1.setText("");
+				 }});
+b1.addActionListener(new ActionListener(){
+			 @Override
+			 public void actionPerformed(ActionEvent e) {
+				 try
+				 {
+				 Class.forName("com.mysql.jdbc.Driver");
+				 Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+					PreparedStatement ps=com.prepareStatement("update  form set name=?,age=?,gender=?,address=?,contact=? where opno=?");
+			        ps.setString(1,t2.getText());
+			        ps.setInt(2,Integer.parseInt(t4.getText()));
+			        ps.setString(3,c.getSelectedItem().toString());
+			        ps.setString(4,a1.getText());
+			        ps.setInt(5,Integer.parseInt(t5.getText()));
+			        ps.setInt(6,Integer.parseInt(t1.getText()));
+					ps.executeUpdate();
+					JOptionPane.showMessageDialog(frame,"Data Updated");
+				
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+}});
+b3.addActionListener(new ActionListener(){
+	 @Override
+	 public void actionPerformed(ActionEvent e) {
+		 try
+		 {
+		 Class.forName("com.mysql.jdbc.Driver");
+		 Connection com=DriverManager.getConnection("jdbc:mysql://localhost:3306/tobi","root","dsrc");
+			PreparedStatement ps=com.prepareStatement("delete from form where opno=?");
+	        ps.setInt(1,Integer.parseInt(t1.getText()));
+			ps.executeUpdate();
+			JOptionPane.showMessageDialog(frame,"Data Deleted");
+		
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}}});
+}
+
+	public static void main(String[] args) {
+		   register r=new register();
+		   r.makeframe();
+		}	
+	}

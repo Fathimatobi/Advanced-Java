@@ -1,0 +1,69 @@
+1.index
+<center>
+<p>
+<br>
+<a href="Register.jsp"><input type="submit" name="register" value="Register"></a>
+<a href="Login.jsp"><input type="submit" name="login" value="Login"></a>
+<a href="EditProfile.jsp"><input type="submit" name="EditProfile" value="Edit Profile"></a>
+</center>
+
+2.register
+<body>
+<form><b><font size="5">Registeration Form</font></b></form>
+<table>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td>Select City</td><td><select name="id">
+<option value="1"></option>
+<option value="2">Chennai</option>
+<option value="3">Cochin</option>
+<option value="4">Banagalore</option>
+<option value="5">Delhi</option>
+</select>
+</td><br>
+<tr><td>Contact Number</td><td><input type="number" name="num"></td><br>
+<tr><td></td><td align="right"><a href="Home.jsp"><input type="submit" value="Submit"></a></td></tr>
+</table>
+<a href="ChangePassword.jsp"><input type="submit" name="changepass" value="Change Password"></a>
+<a href="ViewProfile.jsp"><input type="submit" name="viewprofile" value="View Profile"></a>
+</body>
+
+
+4.<body>
+<form><b><font size="5">Login Details</font></b></form>
+<table>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td></td><td align="right"><input type="submit" name="login" value="Login"></td></tr>
+</table>
+</body>
+
+5.edit profile
+<form><b><font size="5">Edit your Profile</font></b></form>
+<table>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td></tr>
+<tr><td>Enter Password</td><td><input type="password" name="pass"></td></tr>
+<tr><td>Select City</td><td><select name="id">
+<option value="1"></option>
+<option value="2">Chennai</option>
+<option value="3">Cochin</option>
+<option value="4">Banagalore</option>
+<option value="5">Delhi</option>
+</select>
+</td><br>
+<tr><td>Contact Number</td><td><input type="number" name="num"></td><br>
+<tr><td></td><td align="right"><a href="Home.jsp"><input type="submit" value="Submit"></a></td></tr>
+</table>
+
+6.change password
+<form><b><font size="5">Change Your Password</font></b></form>
+<table>
+<tr><td>Enter Name</td><td><input type="text" name="name"></td><br>
+<tr><td>Enter New Password</td><td><input type="password" name="pass"></td><br>
+<tr><td></td><td align="right"><a href="Home.jsp"><input type="submit" value="Save"></td>
+</tr>
+</table>
+
+7.home
+<form><b><font size="5">Registered successfully</font></b></form>
+<a href="index.jsp"><input type="submit" name="back" value="back"></a></center>
